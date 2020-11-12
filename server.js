@@ -3,8 +3,13 @@
 const express = require("express");
 const bodyParser = require("body-parser"); //Nos permite trabajar con el body de las peticiones
 
+const connectDB = require("./db");
 //const router = require("./components/message/network");
 const router = require("./network/routes");
+
+connectDB(
+  "mongodb+srv://db_user_chat:ndgTqigpkG1AlUeD@cluster0.3vhjh.mongodb.net/db_chat?retryWrites=true&w=majority"
+);
 
 var app = express();
 app.use(bodyParser.json()); //Podemos parsear los bodies a info en JSON por ej

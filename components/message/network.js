@@ -6,8 +6,9 @@ const router = express.Router(); //Para crear nuestro enrutador
 const controller = require("./controller");
 
 router.get("/", function (req, res) {
+  const filterMessages = req.query.user || null;
   controller
-    .getMessages()
+    .getMessages(filterMessages)
     .then((messageList) => {
       response.success(req, res, messageList, 200);
     })
@@ -30,6 +31,28 @@ router.post("/", function (req, res) {
         400,
         "Error en el controller para crear el mensaje"
       );
+    });
+});
+
+router.patch("/:id", function (req, res) {
+  controller
+    .updateMessage(req.params.id, req.body.message)
+    .then((data) => {
+      response.success(req, res, data, 200);
+    })
+    .catch((err) => {
+      response.error(req, res, "error interno", 500, err);
+    });
+});
+
+router.delete("/:id", function (req, res) {
+  controller
+    .deleteMessage(req.params.id)
+    .then(() => {
+      response.success(req, res, `Usuario ${req.params.id} eliminado`, 200);
+    })
+    .catch((e) => {
+      response.error(req, res, "Error interno", 500, e);
     });
 });
 
