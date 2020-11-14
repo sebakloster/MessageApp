@@ -1,14 +1,14 @@
-exports.success = function (req, res, message, status) {
+exports.success = function (req, res, data, status) {
   res.status(status || 200).send({
     error: "",
-    body: message,
+    body: data,
   });
 };
 
-exports.error = function (req, res, message, status, details) {
+exports.error = function (req, res, data, status, details) {
   console.error("[response error] " + details);
   res.status(status || 500).send({
-    error: message,
+    error: data,
     body: "",
   });
 };
